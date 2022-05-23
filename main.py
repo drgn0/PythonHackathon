@@ -1,21 +1,17 @@
 import pygame 
 
-
 from my_constants import * 
+from game_initialiser import GameInitialiser 
 
-class Game:
+
+class Game(GameInitialiser):
     def __init__(self):
-        pygame.init() 
-        pygame.display.set_caption("..a game  ?") 
+        super().__init__() 
 
-        self.main_screen = pygame.display.set_mode(SCREEN_SIZE_IN_PIXELS)
-        self.clock = pygame.time.Clock() 
 
-        from map import Map 
-        self.map = Map() 
+    def get_global_pos(self):
+        return pygame.Vector2(0, 0) 
 
-        self.stuff_to_draw = pygame.sprite.Group(self.map) 
-    
     def game_loop(self):
         while True:
             exit_game = self.handle_events() 
@@ -34,22 +30,23 @@ class Game:
         return False 
     
     def simulate_frame(self):
-        self.update_stuff() 
-        self.draw_stuff() 
+        self.update() 
+        self.draw() 
 
         pygame.display.update() 
         self.clock.tick(FPS)
     
-    def update_stuff(self):
-        self.stuff_to_draw.update() 
-    
+    def update(self):
+        self.visible_children = pygame.sprite.Group(filter(lambda sprite: sprite.is_visible, self.children))
 
-    def draw_stuff(self):
+        self.visible_children.update() 
+
+    def draw(self):
         self.main_screen.fill(BACKGROUND_COLOR) 
+        self.visible_children.draw(self.main_screen) 
 
-        self.stuff_to_draw.draw(self.main_screen) 
 
 if __name__ == '__main__':
     game = Game() 
-    game.game_loop() 
+    game.game_loop()
 
