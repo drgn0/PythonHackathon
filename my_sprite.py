@@ -25,9 +25,13 @@ class MySprite(pygame.sprite.Sprite):
     
         if len(self.children):
             self.image = self._image.copy() 
-            visible_children.draw(self._image)  
+            visible_children.draw(self.image)  
         else:
             self.image = self._image 
             
     def set_local_pos(self, pos):
         self.rect.topleft = pos 
+    
+    
+    def toggle_visible(self):
+        self.is_visible = not self.is_visible 

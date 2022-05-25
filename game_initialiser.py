@@ -14,8 +14,8 @@ class GameInitialiser:
         self.initialise_sprites() 
     
     def initialise_sprites(self):
-        self.initialise_map() 
         self.initialise_UI() 
+        self.initialise_map() 
 
         self.children = pygame.sprite.Group(self.map, self.UI) 
     
@@ -30,4 +30,3 @@ class GameInitialiser:
         self.UI = UI(parent = self) 
         self.UI.set_local_pos((0, MAP_SIZE.y * CELL_SIZE))
         
-        self.UI.grid_toggle_button.func = self.map.toggle_visible 

@@ -1,13 +1,14 @@
 import pygame 
 
+import Globals 
 from my_constants import * 
 from game_initialiser import GameInitialiser 
 
 
 class Game(GameInitialiser):
     def __init__(self):
+        Globals.game = self 
         super().__init__() 
-
 
     def get_global_pos(self):
         return pygame.Vector2(0, 0) 
